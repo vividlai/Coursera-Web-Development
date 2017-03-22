@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Week2 Gussing Game</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+
+</head>
+<body onload="colorguess()">
+<script>
+	var colors = ["pink", "gray", "black", "cream", "beige", "cherry", "brown", "yellow", "silver", "blue", "imperial", "white"];
+	var colors = colors.sort();
+	var colors_message = colors.join(", ");
+	var guess_input;
+	var finished = false;
+	var guess_inputid
+	var guesses = 0;
+	var target;
+	var targetid;
+
+	function colorguess(){
+
+		var random = Math.random()*colors.length;
+		 targetid= Math.floor(random);
+		 target = colors[targetid];
+
+
+		while (!finished){
+			guess_input = prompt("I am thinking of one of these:\n\n" +
+			colors+
+			" colors.\n\nWhat color am I thinking of?").toLowerCase();
+			guess_inputid = colors.indexOf(guess_input);					
+			guesses +=1;
+			finished = check_color();
+		}
+}
+	function check_color(){
+		if (guess_inputid<0){
+			alert("Your answer is not in the list.\n\n"+
+				"Please enter a color in the list.");
+			return false;
+		}
+		if (guess_inputid > targetid) {
+			alert("Sorry, your guess is not correct!\n\n"+
+				"Your color is alphabetically higher than mine.\n\n"+
+				"Please try again.");
+			return false;
+		}
+		if (guess_inputid < targetid) {
+			alert("Sorry, your guess is not correct!\n\n"+
+				"Your color is alphabetically lower than mine.\n\n"+
+				"Please try again.");
+			return false;
+		}
+     	var myBody = document.getElementsByTagName("body")[0];
+     	myBody.style.background = target;
+			alert("Congratulations! Your answer is correct!\n\n"+
+				"It took you" + guesses + "guesses to finish the game!");
+				return true;			
+		
+			
+}
+
+</script>
+
+    
+</body>
+</html>
